@@ -6,7 +6,7 @@ class Location:
     def __init__(self, address: str):
         self.address = address
 
-    def get_lat_long(self) -> tuple:
+    def geo_coords(self) -> tuple:
         '''
         Get the latitude and longitude of a location using the address.
         '''
@@ -14,9 +14,9 @@ class Location:
         geolocator = Nominatim(user_agent='next-salah-api')
         loc = geolocator.geocode(self.address)
 
-        return (loc.latitude, loc.longitude)
+        return (loc.longitude, loc.latitude)
 
-    def get_timezone(self) -> str:
+    def timezone(self) -> str:
         '''
         Get the timezone of a location using the latitude and longitude.
         '''
