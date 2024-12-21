@@ -1,5 +1,6 @@
 from geopy.geocoders import Nominatim
 
+
 class Location:
     def __init__(self, address: str):
         self.address = address
