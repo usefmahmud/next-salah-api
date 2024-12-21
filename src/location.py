@@ -22,4 +22,4 @@ class Location:
         '''
 
         tf = TimezoneFinder()
-        return tf.timezone_at(lat=self.get_lat_long()[0], lng=self.get_lat_long()[1])
+        return tf.timezone_at(lat=self.geo_coords()[0], lng=self.geo_coords()[1])

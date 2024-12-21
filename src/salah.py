@@ -1,7 +1,7 @@
 import salat
 import datetime
 import pytz
-from location import Location
+from .location import Location
 from typing import Dict, List
 
 
@@ -59,5 +59,5 @@ class Salah:
 
 # Testing the Salah class
 location = Location('Cairo, Egypt')
-salah = Salah(location.get_lat_long(), 'Africa/Cairo')
+salah = Salah(location.geo_coords(), 'Africa/Cairo')
 print(salah.get_all_salah(datetime.date.today()))
