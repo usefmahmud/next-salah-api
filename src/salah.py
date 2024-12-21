@@ -10,7 +10,7 @@ class Salah:
     def __init__(
         self,
         geo_coords: tuple,
-        timezone,
+        timezone: str,
         method: salat.CalculationMethod = salat.CalculationMethod.EGYPT
     ):
         if not isinstance(geo_coords, tuple) or len(geo_coords) != 2:
