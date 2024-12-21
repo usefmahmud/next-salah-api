@@ -45,7 +45,7 @@ class Salah:
 
         return [
             {
-                'name': name,
+                'name': name.capitalize(),
                 'time': time.strftime('%H:%M')
             } for name, time in prayer_times.items()
         ]
