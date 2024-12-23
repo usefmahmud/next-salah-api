@@ -22,3 +22,15 @@ def get_all_salah(
     )
 
     return salah.get_all_salah(date)
+
+@app.get("/prev_next_salah")
+def get_prev_next_salah(
+        address: str = 'Cairo, Egypt'
+    ):
+    location = Location(address)
+    salah = Salah(
+        location.geo_coords(),
+        location.timezone()
+    )
+
+    return salah.get_prev_next_salah()
