@@ -50,7 +50,7 @@ class Salah:
             } for name, time in prayer_times.items()
         ]
 
-    def get_prev_next_salah(self) -> Dict[str, Dict[str, str]]:
+    def get_next_salah(self) -> Dict[str, Dict[str, str]]:
         '''
         Get the previous and next salah times.
         '''
@@ -58,7 +58,6 @@ class Salah:
         current_time = datetime.datetime.now(self.timezone).time()
 
         next_salah = None
-        next_salah_idx = -1
 
         for salah in all_salah:
             salah_time = datetime.datetime.strptime(salah['time'], '%H:%M').time()
@@ -68,15 +67,10 @@ class Salah:
 
             if current_seconds < salah_seconds:
                 next_salah = salah
-                next_salah_idx += 1
                 break
-            else:
-                next_salah_idx += 1
 
         # If the current time is after the last salah, the next salah is the first salah of the next day
-        # and the previous salah is the last salah of the current day.
         return {
-            'previous': all_salah[next_salah_idx - 1] if next_salah_idx > 0 else all_salah[-1],
             'next': next_salah if next_salah else all_salah[0],
             'time_left': salah_seconds - current_seconds
         }
@@ -85,4 +79,4 @@ class Salah:
 # Testing the Salah class
 location = Location('Cairo, Egypt')
 salah = Salah(location.geo_coords(), 'Africa/Cairo')
-print(salah.get_prev_next_salah())
+print(salah.get_next_salah())
