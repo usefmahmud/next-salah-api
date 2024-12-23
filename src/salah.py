@@ -65,7 +65,7 @@ class Salah:
 
             salah_seconds = salah_time.hour * 3600 + salah_time.minute * 60 + salah_time.second
             current_seconds = current_time.hour * 3600 + current_time.minute * 60 + current_time.second
-            print(current_seconds, salah_seconds)
+
             if current_seconds < salah_seconds:
                 next_salah = salah
                 next_salah_idx += 1
@@ -77,7 +77,8 @@ class Salah:
         # and the previous salah is the last salah of the current day.
         return {
             'previous': all_salah[next_salah_idx - 1] if next_salah_idx > 0 else all_salah[-1],
-            'next': next_salah if next_salah else all_salah[0]
+            'next': next_salah if next_salah else all_salah[0],
+            'time_left': salah_seconds - current_seconds
         }
 
 
