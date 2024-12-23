@@ -57,24 +57,31 @@ class Salah:
         all_salah = self.get_all_salah(datetime.date.today())
         current_time = datetime.datetime.now(self.timezone).time()
 
-        prev_salah = None
         next_salah = None
+        next_salah_idx = -1
 
         for salah in all_salah:
             salah_time = datetime.datetime.strptime(salah['time'], '%H:%M').time()
 
-            if salah_time < current_time:
-                prev_salah = salah
-            else:
+            salah_seconds = salah_time.hour * 3600 + salah_time.minute * 60 + salah_time.second
+            current_seconds = current_time.hour * 3600 + current_time.minute * 60 + current_time.second
+            print(current_seconds, salah_seconds)
+            if current_seconds < salah_seconds:
                 next_salah = salah
-        
+                next_salah_idx += 1
+                break
+            else:
+                next_salah_idx += 1
+
+        # If the current time is after the last salah, the next salah is the first salah of the next day
+        # and the previous salah is the last salah of the current day.
         return {
-            'previous': prev_salah if prev_salah else all_salah[-1],
+            'previous': all_salah[next_salah_idx - 1] if next_salah_idx > 0 else all_salah[-1],
             'next': next_salah if next_salah else all_salah[0]
         }
 
 
 # Testing the Salah class
-# location = Location('Cairo, Egypt')
-# salah = Salah(location.geo_coords(), 'Africa/Cairo')
-# print(salah.get_prev_next_salah())
+location = Location('Cairo, Egypt')
+salah = Salah(location.geo_coords(), 'Africa/Cairo')
+print(salah.get_prev_next_salah())
