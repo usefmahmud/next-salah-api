@@ -12,7 +12,7 @@ def root():
 
 @app.get("/all_salah")
 def get_all_salah(
-        address: str = 'Cair, Egypt',
+        address: str = 'Cairo, Egypt',
         date: datetime.date = datetime.date.today()
     ):
     location = Location(address)
